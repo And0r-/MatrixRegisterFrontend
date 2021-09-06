@@ -3,7 +3,7 @@
   hosts: frontend
 
   tasks:
-  - name: copy frontend code to host
+  - name: checkout frontend code on host
     git:
       repo: git@github.com:And0r-/MatrixRegisterFrontend.git
       dest: ~/projects/MatrixRegisterFrontend
@@ -27,3 +27,4 @@
       recreate: yes
       ports:
         - "49172:3000"
+

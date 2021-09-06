@@ -55,7 +55,7 @@ class Form extends React.Component {
 
 
     componentDidMount() {
-        fetch('http://localhost:3001/config/' + this.props.match.params.token)
+        fetch('https://join.iot-schweiz.ch/api/config/' + this.props.match.params.token)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -105,7 +105,7 @@ class Form extends React.Component {
             body: JSON.stringify(formData)
         };
 
-        fetch('http://localhost:3001/register', requestOptions)
+        fetch('https://join.iot-schweiz.ch/api/register', requestOptions)
             .then(res => res.json())
             .then(
                 (result) => {

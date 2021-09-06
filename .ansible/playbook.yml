@@ -27,4 +27,3 @@
       recreate: yes
       ports:
         - "49172:3000"
-

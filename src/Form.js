@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, TextField, Button } from '@material-ui/core';
 import MuiPhoneNumber from "material-ui-phone-number";
 import { withStyles } from '@material-ui/core/styles';
+import stage_config from './config';
 
 const useStyles = theme => ({
     site: {
@@ -55,7 +56,7 @@ class Form extends React.Component {
 
 
     componentDidMount() {
-        fetch('https://join.iot-schweiz.ch/api/config/' + this.props.match.params.token)
+        fetch(stage_config.apiGateway.URL + '/config/' + this.props.match.params.token)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -96,8 +97,13 @@ class Form extends React.Component {
     }
 
     sendForm() {
-        let formData = {};
-        formData.name = this.state.name;
+        let formData = {
+            name: this.state.name,
+            email: this.state.email,
+            phone: this.state.phone,
+            token: this.props.match.params.token,
+        };
+
 
         const requestOptions = {
             method: 'POST',
@@ -105,7 +111,7 @@ class Form extends React.Component {
             body: JSON.stringify(formData)
         };
 
-        fetch('https://join.iot-schweiz.ch/api/register', requestOptions)
+        fetch(stage_config.apiGateway.URL + '/register', requestOptions)
             .then(res => res.json())
             .then(
                 (result) => {

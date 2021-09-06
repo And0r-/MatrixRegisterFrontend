@@ -4,10 +4,9 @@
 
   tasks:
   - name: copy frontend code to host
-    synchronize:
-      src: ../../
+    git:
+      repo: git@github.com:And0r-/MatrixRegisterFrontend.git
       dest: ~/projects/MatrixRegisterFrontend
-      delete : yes
 
   - name: build docker image
     become: true

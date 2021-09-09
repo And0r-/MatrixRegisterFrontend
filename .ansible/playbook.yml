@@ -27,3 +27,5 @@
       recreate: yes
       ports:
         - "49172:3000"
+      restart: yes
+      restart_policy: always

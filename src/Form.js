@@ -193,7 +193,7 @@ class Form extends React.Component {
 
         } if (formState == 3) {
             return <div className={classes.container} >
-                <Card className={classes.site}>{config.doneText}</Card>
+                <Card className={classes.site} dangerouslySetInnerHTML={ {__html: config.doneText} } />
             </div>;
         }
     }

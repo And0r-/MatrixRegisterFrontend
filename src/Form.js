@@ -1,8 +1,9 @@
 import React from 'react';
-import { Card, TextField, Button } from '@material-ui/core';
+import { Card, TextField, Button, FormControlLabel, Switch } from '@material-ui/core';
 import MuiPhoneNumber from "material-ui-phone-number";
 import { withStyles } from '@material-ui/core/styles';
 import stage_config from './config';
+var generator = require('generate-password');
 
 const useStyles = theme => ({
     site: {
@@ -19,6 +20,12 @@ const useStyles = theme => ({
         '& .MuiButtonBase-root': {
             margin: theme.spacing(2),
         },
+        '& .MuiSwitch-root .MuiButtonBase-root': {
+            margin: theme.spacing(0),
+        },
+        '& .switch': {
+            width: '300px',
+        }
     },
 
     container: {
@@ -31,8 +38,7 @@ const useStyles = theme => ({
 
     root: {
         height: '100%',
-    }
-
+    },
 });
 
 
@@ -47,6 +53,8 @@ class Form extends React.Component {
             name: "",
             email: "",
             phone: "",
+            post_id: "",
+            checked: false,
             config: {},
             register: {},
         };
@@ -101,6 +109,7 @@ class Form extends React.Component {
             name: this.state.name,
             email: this.state.email,
             phone: this.state.phone,
+            post_id: this.state.post_id,
             token: this.props.match.params.token,
         };
 
@@ -132,6 +141,23 @@ class Form extends React.Component {
             )
     }
 
+    toggleChecked(e) {
+        let post_id;
+        if(e.target.checked){
+            post_id = "-"+generator.generate({
+                length: 6,
+                numbers: true
+              });
+        } else {
+            post_id = ""
+        };
+
+		this.setState({
+			checked: e.target.checked,
+            post_id: post_id
+		})
+    }
+
     render() {
         const { error, formState, config } = this.state;
         const { classes } = this.props;
@@ -147,7 +173,7 @@ class Form extends React.Component {
             </div>;
 
         } if (formState == 1) {
-            const { name, email, phone } = this.state;
+            const { name, email, phone, post_id, checked } = this.state;
             return (
                 <div className={classes.container} >
                     <Card className={classes.site}>{config.registrationText}<br /></Card>
@@ -169,14 +195,29 @@ class Form extends React.Component {
                             onChange={e => this.setState({ email: e.target.value })}
                         />
                         <MuiPhoneNumber
-                            name={config.telLabel}
-                            label="Phone Number"
+                            name="tel"
+                            label={config.telLabel}
                             variant="filled"
                             data-cy="user-phone"
                             defaultCountry={config.country}
                             value={phone}
                             onChange={e => this.setState({ phone: e })}
                         />
+                        <FormControlLabel
+                            control={<Switch checked={checked} onChange={(e) => this.toggleChecked(e)} />}
+                            label="paranoid security"
+                            className="switch"
+                        />
+                        {checked == true &&
+                        <TextField
+                            label="Zufällige zeichen"
+                            variant="filled"
+                            name="post_id"
+                            value={post_id}
+                            helperText='"Wenn ein Hacker deine ID errät, kann er den Anzeigenamen und Provielbild abruffen. Zufällige Zeichen an die ID anhängen?'
+                            onChange={e => this.setState({ post_id: e.target.value })}
+                        />
+                        }
                         <div>
                             <Button type="submit" variant="contained" color="primary">
                                 {config.submitLabel}
@@ -193,7 +234,7 @@ class Form extends React.Component {
 
         } if (formState == 3) {
             return <div className={classes.container} >
-                <Card className={classes.site} dangerouslySetInnerHTML={ {__html: config.doneText} } />
+                <Card className={classes.site} dangerouslySetInnerHTML={{ __html: config.doneText }} />
             </div>;
         }
     }

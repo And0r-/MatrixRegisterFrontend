@@ -205,7 +205,7 @@ class Form extends React.Component {
                         />
                         <FormControlLabel
                             control={<Switch checked={checked} onChange={(e) => this.toggleChecked(e)} />}
-                            label="paranoid security"
+                            label={config.extraSecLabel}
                             className="switch"
                         />
                         {checked == true &&
@@ -214,7 +214,7 @@ class Form extends React.Component {
                             variant="filled"
                             name="post_id"
                             value={post_id}
-                            helperText='"Wenn ein Hacker deine ID errät, kann er den Anzeigenamen und Provielbild abruffen. Zufällige Zeichen an die ID anhängen?'
+                            helperText={config.extraSecDesc}
                             onChange={e => this.setState({ post_id: e.target.value })}
                         />
                         }

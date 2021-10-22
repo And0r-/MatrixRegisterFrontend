@@ -80,16 +80,13 @@ class ProjectForm extends React.Component {
             formData.contact = this.state.contact
         }
 
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
-        };
-
-        console.log(formData);
-
-        fetch(stage_config.apiGateway.URL + '/test2', requestOptions)
-            .then(res => res.json())
+        this.props.axiosInstance.post(stage_config.apiGateway.URL + '/test2',  JSON.stringify(formData), {
+            headers: {
+              // Overwrite Axios's automatically set Content-Type
+              'Content-Type': 'application/json'
+            }
+          })
+            .then(res => res.data)
             .then(
                 (result) => {
                     this.setState({

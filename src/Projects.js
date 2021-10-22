@@ -188,7 +188,7 @@ class Projects extends Component {
                         </CardContent>
                     </Card>
                     {this.createList(projectList)}
-                    <ProjectForm keycloak={this.props.keycloak} />
+                    <ProjectForm keycloak={this.props.keycloak} axiosInstance={axiosInstance} />
                 </div>
             );
         }

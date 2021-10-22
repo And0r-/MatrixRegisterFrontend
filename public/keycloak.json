@@ -1,0 +1,8 @@
+{
+    "realm": "IOT",
+    "auth-server-url": "https://keycloak.iot-schweiz.ch/auth",
+    "ssl-required": "external",
+    "resource": "IOT-projects-frontend",
+    "public-client": true,
+    "confidential-port": 0
+  }

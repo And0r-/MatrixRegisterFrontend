@@ -7,6 +7,8 @@ import CardContent from '@material-ui/core/CardContent';
 import { withStyles } from '@material-ui/core/styles';
 import CardHeader from '@material-ui/core/CardHeader';
 
+import DeleteIcon from '@mui/icons-material/Delete';
+
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 
@@ -60,6 +62,7 @@ const useStyles = theme => ({
     button: {
         backgroundColor: 'gray',
     }
+    
 });
 
 var axiosInstance = axios.create({
@@ -149,8 +152,8 @@ class Projects extends Component {
                         <span>Contact: {projectList[i].contact.join(', ')}</span>
                     </CardContent>
                     <CardActions className={classes.breit +' '+ classes.parentFlexRight} >
-                        <Button className={classes.button} size="small">Delete</Button>
-                        <Button className={classes.button} size="small">Edit</Button>
+                        <Button size="small" variant="outlined" color="primary">Edit</Button>
+                        <Button size="small" variant="outlined" color="secondary" startIcon={<DeleteIcon />}>Delete</Button>
                     </CardActions>
                 </Card>
                 // </li>

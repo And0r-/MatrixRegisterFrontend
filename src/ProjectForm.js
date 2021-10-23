@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, TextField, Button, FormControlLabel, FormControl, FormLabel, RadioGroup, Radio } from '@material-ui/core';
+import { Box, Card, TextField, Button, FormControlLabel, FormControl, FormLabel, RadioGroup, Radio } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import stage_config from './config';
 
@@ -13,14 +13,14 @@ const useStyles = theme => ({
 
         '& .MuiTextField-root': {
             margin: theme.spacing(1),
-            width: '300px',
+            width: '600px',
         },
 
         '& .MuiSwitch-root .MuiButtonBase-root': {
             margin: theme.spacing(0),
         },
         '& .switch': {
-            width: '300px',
+            width: '600px',
         }
     },
 
@@ -30,6 +30,10 @@ const useStyles = theme => ({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+
+    half: {
+        width: '300px',
     },
 
     root: {
@@ -80,12 +84,12 @@ class ProjectForm extends React.Component {
             formData.contact = this.state.contact
         }
 
-        this.props.axiosInstance.post(stage_config.apiGateway.URL + '/test2',  JSON.stringify(formData), {
+        this.props.axiosInstance.post(stage_config.apiGateway.URL + '/test2', JSON.stringify(formData), {
             headers: {
-              // Overwrite Axios's automatically set Content-Type
-              'Content-Type': 'application/json'
+                // Overwrite Axios's automatically set Content-Type
+                'Content-Type': 'application/json'
             }
-          })
+        })
             .then(res => res.data)
             .then(
                 (result) => {
@@ -125,60 +129,70 @@ class ProjectForm extends React.Component {
             return (
                 <div className={classes.container} >
                     <Card className={classes.site}>Add a Project<br /></Card>
-                    <form className={classes.site} onSubmit={this.handleSubmit}>
-                        <TextField
-                            label="Title"
-                            variant="filled"
-                            name="title"
-                            required
-                            value={title}
-                            onChange={e => this.setState({ title: e.target.value })}
-                        />
-                        <TextField
-                            label="Text"
-                            variant="filled"
-                            name="text"
-                            required
-                            value={text}
-                            onChange={e => this.setState({ text: e.target.value })}
-                        />
-                        <TextField
-                            label="Link"
-                            variant="filled"
-                            name="url"
-                            value={url}
-                            onChange={e => this.setState({ url: e.target.value })}
-                        />
-                        <TextField
-                            label="Yourube Link"
-                            variant="filled"
-                            name="video"
-                            value={video}
-                            onChange={e => this.setState({ video: e.target.value })}
-                        />
-                        
+                        <Box
+                            component="form"
+                            onSubmit={this.handleSubmit}
+                            className={classes.site}
+                            >
+                            <TextField
+                                label="Title"
+                                variant="filled"
+                                name="title"
+                                required
+                                value={title}
+                                onChange={e => this.setState({ title: e.target.value })}
+                            />
+                            <TextField
+                                label="Text"
+                                variant="filled"
+                                name="text"
+                                required
+                                multiline
+                                minRows="9"
+                                value={text}
+                                onChange={e => this.setState({ text: e.target.value })}
+                            />
+                            <div>
+                                <TextField
+                                    label="Yourube Link"
+                                    variant="filled"
+                                    name="video"
+                                    value={video}
+                                    onChange={e => this.setState({ video: e.target.value })}
+                                    style={{ width: 295 }}
+                                />
+                                <TextField
+                                    label="Link"
+                                    variant="filled"
+                                    name="url"
+                                    value={url}
+                                    onChange={e => this.setState({ url: e.target.value })}
+                                    style={{ width: 292 }}
+                                />
+                            </div>
 
 
-                        <div>
-                            <Button type="submit" variant="contained" color="primary">
-                                Erstellen
-                            </Button>
-                        </div>
-                    </form>
+
+                            <div>
+                                <Button type="submit" variant="contained" color="primary">
+                                    Erstellen
+                                </Button>
+                            </div>
+                        </Box>
                 </div>
-            );
+                    );
 
         } if (formState == 2) {
             return <div className={classes.container} >
-                <Card className={classes.site}>Sendig Data...</Card>
-            </div>;
+                        <Card className={classes.site}>Sendig Data...</Card>
+                    </div>;
 
         } if (formState == 3) {
             return <div className={classes.container} >
-                <Card className={classes.site} >Project added :D</Card>
-            </div>;
+                        <Card className={classes.site} >Project added :D</Card>
+                    </div>;
         }
     }
 };
 
-export default withStyles(useStyles)(ProjectForm);
+                    export default withStyles(useStyles)(ProjectForm);

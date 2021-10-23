@@ -1,24 +1,24 @@
 import React from 'react';
-import { Card, TextField, Button, FormControlLabel, FormControl, FormLabel, RadioGroup, Radio } from '@material-ui/core';
+import { Card, TextField, Button, FormControlLabel, FormControl, FormLabel, RadioGroup, Radio } from '@mui/material';
 import MuiPhoneNumber from "material-ui-phone-number";
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@mui/styles';
 import stage_config from './config';
 
-const useStyles = theme => ({
+const useStyles = {
     site: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: theme.spacing(2),
+        padding: '16px',
 
         '& .MuiTextField-root': {
-            margin: theme.spacing(1),
+            margin: '8px',
             width: '300px',
         },
 
         '& .MuiSwitch-root .MuiButtonBase-root': {
-            margin: theme.spacing(0),
+            margin: '0px',
         },
         '& .switch': {
             width: '300px',
@@ -36,7 +36,7 @@ const useStyles = theme => ({
     root: {
         height: '100%',
     },
-});
+};
 
 
 class Form extends React.Component {
@@ -155,7 +155,7 @@ class Form extends React.Component {
             const { name, email, phone } = this.state;
             return (
                 <div className={classes.container} >
-                    <Card className={classes.site}>{config.registrationText}<br /></Card>
+                    <Card className={classes.site}>{config.registrationText}<br />
                     <form className={classes.site} onSubmit={this.handleSubmit}>
                         <TextField
                             label={config.nameLabel}
@@ -206,6 +206,7 @@ class Form extends React.Component {
                             </Button>
                         </div>
                     </form>
+                    </Card>
                 </div>
             );
 

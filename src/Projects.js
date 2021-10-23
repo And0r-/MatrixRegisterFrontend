@@ -2,27 +2,28 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import stage_config from './config';
 
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import { withStyles } from '@material-ui/core/styles';
-import CardHeader from '@material-ui/core/CardHeader';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import { withStyles } from '@mui/styles';
+import CardHeader from '@mui/material/CardHeader';
 
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
-import CardActions from '@material-ui/core/CardActions';
-import Button from '@material-ui/core/Button';
+import CardActions from '@mui/material/CardActions';
+import Button from '@mui/material/Button';
 
 import ProjectForm from './ProjectForm';
 
 
-const useStyles = theme => ({
+const useStyles = {
     site: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: theme.spacing(2),
-        margin: theme.spacing(2),
+        padding: '16px',
+        margin: '16px',
         width: '600px',
         backgroundColor: 'lightgray',
     },
@@ -61,9 +62,12 @@ const useStyles = theme => ({
 
     button: {
         backgroundColor: 'gray',
-    }
+    },
     
-});
+    card: {
+        backgroundColor: "secondary"
+    },
+};
 
 var axiosInstance = axios.create({
     // baseURL: stage_config.apiGateway.URL
@@ -152,8 +156,8 @@ class Projects extends Component {
                         <span>Contact: {projectList[i].contact.join(', ')}</span>
                     </CardContent>
                     <CardActions className={classes.breit +' '+ classes.parentFlexRight} >
-                        <Button size="small" variant="outlined" color="primary">Edit</Button>
-                        <Button size="small" variant="outlined" color="secondary" startIcon={<DeleteIcon />}>Delete</Button>
+                        <Button size="small" variant="contained" color="primary" startIcon={<EditIcon />}>Edit</Button>
+                        <Button size="small" variant="contained" color="secondary" startIcon={<DeleteIcon />}>Delete</Button>
                     </CardActions>
                 </Card>
                 // </li>

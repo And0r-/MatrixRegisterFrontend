@@ -1,23 +1,28 @@
 import React from 'react';
-import { Box, Card, TextField, Button, FormControlLabel, FormControl, FormLabel, RadioGroup, Radio } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import { Box, Card, TextField, Button, FormControlLabel, FormControl, FormLabel, RadioGroup, Radio } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import stage_config from './config';
 
-const useStyles = theme => ({
+import DeleteIcon from '@mui/icons-material/Delete';
+
+import CardHeader from '@mui/material/CardHeader';
+import CardActions from '@mui/material/CardActions';
+
+const useStyles = {
     site: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: theme.spacing(2),
+        padding: '16px',
 
         '& .MuiTextField-root': {
-            margin: theme.spacing(1),
+            margin: '8px',
             width: '600px',
         },
 
         '& .MuiSwitch-root .MuiButtonBase-root': {
-            margin: theme.spacing(0),
+            margin: '0px',
         },
         '& .switch': {
             width: '600px',
@@ -36,10 +41,21 @@ const useStyles = theme => ({
         width: '300px',
     },
 
+    breit: {
+        width: '568px',
+    },
+
+    parentFlexRight: {
+        display: "flex",
+        justifyContent: "flex-end"
+    },
+
     root: {
         height: '100%',
     },
-});
+
+
+};
 
 
 class ProjectForm extends React.Component {
@@ -128,71 +144,79 @@ class ProjectForm extends React.Component {
             const { title, text, url, video, contact } = this.state;
             return (
                 <div className={classes.container} >
-                    <Card className={classes.site}>Add a Project<br /></Card>
-                        <Box
-                            component="form"
-                            onSubmit={this.handleSubmit}
-                            className={classes.site}
-                            >
+                    <Box
+                        component="form"
+                        onSubmit={this.handleSubmit}
+                        className={classes.site}
+                    >
+                        <Card className={classes.site} style={{ width: 600 }}>
+                        <CardHeader title="Add a Project" />
+                        <TextField
+                            label="Title"
+                            variant="filled"
+                            name="title"
+                            required
+                            value={title}
+                            onChange={e => this.setState({ title: e.target.value })}
+                            style={{ width: 568}}
+                        />
+                        <TextField
+                            label="Text"
+                            variant="filled"
+                            name="text"
+                            required
+                            multiline
+                            minRows="9"
+                            value={text}
+                            onChange={e => this.setState({ text: e.target.value })}
+                            style={{ width: 568}}
+                        />
+                        <div>
                             <TextField
-                                label="Title"
+                                label="Yourube Link"
                                 variant="filled"
-                                name="title"
-                                required
-                                value={title}
-                                onChange={e => this.setState({ title: e.target.value })}
+                                name="video"
+                                value={video}
+                                onChange={e => this.setState({ video: e.target.value })}
+                                style={{ width: 276 }}
                             />
                             <TextField
-                                label="Text"
+                                label="Link"
                                 variant="filled"
-                                name="text"
-                                required
-                                multiline
-                                minRows="9"
-                                value={text}
-                                onChange={e => this.setState({ text: e.target.value })}
+                                name="url"
+                                value={url}
+                                onChange={e => this.setState({ url: e.target.value })}
+                                style={{ width: 276 }}
                             />
-                            <div>
-                                <TextField
-                                    label="Yourube Link"
-                                    variant="filled"
-                                    name="video"
-                                    value={video}
-                                    onChange={e => this.setState({ video: e.target.value })}
-                                    style={{ width: 295 }}
-                                />
-                                <TextField
-                                    label="Link"
-                                    variant="filled"
-                                    name="url"
-                                    value={url}
-                                    onChange={e => this.setState({ url: e.target.value })}
-                                    style={{ width: 292 }}
-                                />
-                            </div>
+                        </div>
 
 
 
-                            <div>
-                                <Button type="submit" variant="contained" color="primary">
-                                    Erstellen
-                                </Button>
-                            </div>
-                        </Box>
+                        {/* <div>
+                            <Button type="submit" variant="contained" color="primary">
+                                Erstellen
+                            </Button>
+                        </div> */}
+                        <CardActions className={classes.breit +' '+ classes.parentFlexRight} >
+                    
+                        <Button size="small" variant="contained" color="primary" startIcon={<DeleteIcon />}>Erstellen</Button>
+                    </CardActions>
+                        </Card>
+                    </Box>
                 </div>
-                    );
+            );
 
         } if (formState == 2) {
             return <div className={classes.container} >
-                        <Card className={classes.site}>Sendig Data...</Card>
-                    </div>;
+                <Card className={classes.site}>Sendig Data...</Card>
+            </div>;
 
         } if (formState == 3) {
             return <div className={classes.container} >
-                        <Card className={classes.site} >Project added :D</Card>
-                    </div>;
+                <Card className={classes.site} >Project added :D</Card>
+            </div>;
         }
     }
 };
 
-                    export default withStyles(useStyles)(ProjectForm);
+export default withStyles(useStyles)(ProjectForm);

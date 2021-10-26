@@ -1,6 +1,8 @@
 import './App.css';
 import CreateUserDialog from './Form';
 import Secured from './Secured';
+import Secured2 from './Secured2';
+import GetMatrixToken from './GetMatrixToken';
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,6 +18,8 @@ function App() {
       <Switch>
         <Route path="/register/:token" component={CreateUserDialog} />
         <Route path="/secured" component={Secured} />
+        <Route path="/secured2" component={Secured2} />
+        <Route path="/getMatrixToken" component={GetMatrixToken} />
       </Switch>
     </Router>
 

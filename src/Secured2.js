@@ -31,7 +31,6 @@ class Secured extends Component {
                 //      console.log("test: ", keycloak.profile);
                 this.setState({ keycloak: keycloak, authenticated: true });
             }
-
         })
     }
 

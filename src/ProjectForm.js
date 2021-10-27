@@ -150,6 +150,7 @@ class ProjectForm extends React.Component {
                         className={classes.site}
                     >
                         <Card className={classes.site} style={{ width: 600 }}>
+                            
                         <CardHeader title="Add a Project" />
                         <TextField
                             label="Title"
@@ -199,7 +200,7 @@ class ProjectForm extends React.Component {
                         </div> */}
                         <CardActions className={classes.breit +' '+ classes.parentFlexRight} >
                     
-                        <Button size="small" variant="contained" color="primary" startIcon={<DeleteIcon />}>Erstellen</Button>
+                        <Button type="submit" size="small" variant="contained" color="primary" startIcon={<DeleteIcon />}>Erstellen</Button>
                     </CardActions>
                         </Card>
                     </Box>

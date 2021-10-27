@@ -173,7 +173,7 @@ class Form extends React.Component {
                             value={email}
                             onChange={e => this.setState({ email: e.target.value })}
                         />
-                        <MuiPhoneNumber
+                        {/* <MuiPhoneNumber
                             name="tel"
                             label={config.telLabel}
                             variant="filled"
@@ -181,7 +181,7 @@ class Form extends React.Component {
                             defaultCountry={config.country}
                             value={phone}
                             onChange={e => this.setState({ phone: e })}
-                        />
+                        /> */}
 
                         <br />&nbsp;<br />
 

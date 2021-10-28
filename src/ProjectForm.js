@@ -99,7 +99,7 @@ class ProjectForm extends React.Component {
         if (this.state.contact && this.state.contact.length > 0) {
             formData.contact = this.state.contact
         }
-
+        
         this.props.axiosInstance.post(stage_config.apiGateway.URL + '/test2', JSON.stringify(formData), {
             headers: {
                 // Overwrite Axios's automatically set Content-Type
@@ -213,9 +213,11 @@ class ProjectForm extends React.Component {
             </div>;
 
         } if (formState == 3) {
+            this.props.projectsPage.getProjectList();
             return <div className={classes.container} >
                 <Card className={classes.site} >Project added :D</Card>
             </div>;
+            
         }
     }
 };

@@ -101,35 +101,40 @@ class Projects extends Component {
     }
 
     componentDidMount() {
-        axiosInstance.get(stage_config.apiGateway.URL + '/test2')
-            .then(res => res.data)
-            .then(
-                (result) => {
-                    if ("error" in result) {
-                        this.setState({
-                            error: { message: result.error },
-                        });
-                    } else {
-                        console.log(result);
-                        this.setState({
-                            projectList: result,
-                            isLoaded: false
-                        });
-                    }
-                },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
-                (error) => {
-                    this.setState({
-                        error
-                    });
-                }
-            )
+        this.getProjectList();
     }
 
-    createList(projectList) {
+    getProjectList() {
+        axiosInstance.get(stage_config.apiGateway.URL + '/test2')
+        .then(res => res.data)
+        .then(
+            (result) => {
+                if ("error" in result) {
+                    this.setState({
+                        error: { message: result.error },
+                    });
+                } else {
+                    console.log(result);
+                    this.setState({
+                        projectList: result,
+                        isLoaded: false
+                    });
+                }
+            },
+            // Note: it's important to handle errors here
+            // instead of a catch() block so that we don't swallow
+            // exceptions from actual bugs in components.
+            (error) => {
+                this.setState({
+                    error
+                });
+            }
+        )
+    }
+
+    createList() {
         const { classes } = this.props;
+        const { projectList } = this.state;
         let projectListHtml = [];
 
         // alert(JSON.stringify(projectList, null, "  "));
@@ -167,7 +172,7 @@ class Projects extends Component {
     }
 
     render() {
-        const { projectList, error, isLoaded } = this.state;
+        const { error, isLoaded } = this.state;
         const { classes } = this.props;
 
         if (error) {
@@ -182,7 +187,7 @@ class Projects extends Component {
             </div>;
         }
 
-        if (projectList) {
+        if (!isLoaded) {
             console.log("project, userdata: ", this.props.keycloak);
             return (
 
@@ -194,8 +199,8 @@ class Projects extends Component {
                                 Here you can find some IOT projects, or add a own one.</span>
                         </CardContent>
                     </Card>
-                    {this.createList(projectList)}
-                    <ProjectForm keycloak={this.props.keycloak} axiosInstance={axiosInstance} />
+                    {this.createList()}
+                    <ProjectForm keycloak={this.props.keycloak} axiosInstance={axiosInstance} projectsPage={this} />
                 </div>
             );
         }

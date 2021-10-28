@@ -14,11 +14,11 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/register/:token" component={CreateUserDialog} />
+        <Route exact  path="/register/:token" component={CreateUserDialog} />
 
-        <PrivateRoute path="/projects" component={Projects} />
-        <PrivateRoute path="/getMatrixToken" component={GetMatrixToken} />
-        <PrivateRoute path="/setMatrixAccess" component={SetMatrixAccess} />
+        <PrivateRoute exact  path="/" component={Projects} />
+        <Route exact  path="/getMatrixToken" component={GetMatrixToken} />
+        <PrivateRoute exact  path="/setMatrixAccess" component={SetMatrixAccess} />
 
       </Switch>
     </Router>

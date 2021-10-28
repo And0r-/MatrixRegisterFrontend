@@ -1,25 +1,32 @@
 import './App.css';
 import CreateUserDialog from './Form';
-import Secured from './Secured';
-import Secured2 from './Secured2';
+// import Secured from './Secured';
+import PrivateRoute from './PrivateRoute';
+// import Secured2 from './Secured2';
 import GetMatrixToken from './GetMatrixToken';
+import SetMatrixAccess from './SetMatrixAccess';
+import Projects from './Projects';
+// import { ReactKeycloakProvider } from '@react-keycloak/web'
+// import keycloak from './keycloak'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from "react-router-dom";
 
+// import { PrivateRoute } from './PrivateRoute'
+
 
 function App() {
   return (
     <Router>
-      {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
       <Switch>
         <Route path="/register/:token" component={CreateUserDialog} />
-        <Route path="/secured" component={Secured} />
-        <Route path="/secured2" component={Secured2} />
-        <Route path="/getMatrixToken" component={GetMatrixToken} />
+
+        <PrivateRoute path="/projects" component={Projects} />
+        <PrivateRoute path="/getMatrixToken" component={GetMatrixToken} />
+        <PrivateRoute path="/setMatrixAccess" component={SetMatrixAccess} />
+
       </Switch>
     </Router>
 

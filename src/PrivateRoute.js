@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import Keycloak from 'keycloak-js';
-import Matrix from './Matrix';
 
 
-class Secured extends Component {
+import {
+    Route,
+  } from "react-router-dom";
+
+class Secured2 extends Component {
 
     constructor(props) {
         super(props);
@@ -35,13 +38,15 @@ class Secured extends Component {
     }
 
     render() {
-        if (this.state.keycloak && this.state.keycloak) {
+        const {component: Component, ...rest} = this.props;
+        if (this.state.keycloak) {
             if (this.state.authenticated) return (
                 <div>
-                    <Matrix keycloak={this.state.keycloak}></Matrix>
-                    <div>{console.log("keycloak state: ", this.state.keycloak)}</div>
-                    <div>{console.log("keycloak pref name: ", this.state.keycloak.idTokenParsed.given_name)}</div>
+                <Route {...rest} render={props => (
+                    <Component {...props} keycloak={this.state.keycloak} />
+                )} />
                 </div>
+                    
             ); else return (<div>Unable to authenticate!</div>)
         }
         return (
@@ -49,4 +54,4 @@ class Secured extends Component {
         );
     }
 }
-export default Secured;
+export default Secured2;

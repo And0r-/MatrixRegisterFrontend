@@ -16,7 +16,7 @@ class GetMatrixToken extends Component {
         window.localStorage.setItem('Mtoken', Mtoken);
 
         
-        return <Redirect to="/secured2" />
+        return <Redirect to="/setMatrixAccess" />
         // return (
         //     <div>{Mtoken}</div>
             

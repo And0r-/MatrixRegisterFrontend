@@ -1,6 +1,7 @@
 import React from 'react';
-import { Box, Card, TextField, Button, FormControlLabel, FormControl, FormLabel, RadioGroup, Radio } from '@mui/material';
+import { Box, Card, TextField, Button, FormControlLabel, FormControl, FormLabel, RadioGroup, Radio, getRadioUtilityClass } from '@mui/material';
 import { withStyles } from '@mui/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 import stage_config from './config';
 
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -12,6 +13,9 @@ import CardActions from '@mui/material/CardActions';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
 
+import Expire from './Expire';
+
+import UploadFiles from "./components/upload-files.component";
 
 
 
@@ -280,6 +284,7 @@ class ProjectForm extends React.Component {
                                 />
                             </div>
                             
+                            <UploadFiles />
 
 
                             {/* <div>

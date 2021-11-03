@@ -12,3 +12,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.ql-bubble .ql-editor {
+  background-color: rgba(0, 0, 0, 0.06);
+  min-height: 200px;
+  /* color: #f8f8f2; */
+  /* overflow: visible; */
+}

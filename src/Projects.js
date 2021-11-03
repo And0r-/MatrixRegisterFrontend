@@ -5,6 +5,8 @@ import stage_config from './config';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { withStyles } from '@mui/styles';
+
+
 import CardHeader from '@mui/material/CardHeader';
 
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -16,6 +18,8 @@ import Button from '@mui/material/Button';
 import ProjectForm from './ProjectForm';
 
 import Divider from '@mui/material/Divider';
+
+import DOMPurify from 'dompurify';
 
 
 const useStyles = {
@@ -106,6 +110,8 @@ class Projects extends Component {
 
     deleteProject(id) {
         const { projectList } = this.state;
+
+        this.props.keycloak.updateToken(30);
        
         axiosInstance.delete(stage_config.apiGateway.URL + '/project/'+projectList[id].id)
         .then(res => res.data)
@@ -138,6 +144,7 @@ class Projects extends Component {
     }
 
     getProjectList() {
+        this.props.keycloak.updateToken(30);
         axiosInstance.get(stage_config.apiGateway.URL + '/test2')
         .then(res => res.data)
         .then(
@@ -170,10 +177,14 @@ class Projects extends Component {
         const { projectList } = this.state;
         let projectListHtml = [];
 
+        
+
         // alert(JSON.stringify(projectList, null, "  "));
 
         for (let i = 0; i < projectList.length; i++) {
             console.log(projectList[i].title);
+
+            const sanitizedText=DOMPurify.sanitize(projectList[i].text, {ALLOWED_TAGS: ['b', 'code', 'strong', 'em', 'span', 'p', 'br', 'a'], ALLOWED_ATTR: ['style', 'href']})
 
             var videoHtml = ""
             if (projectList[i].video) {
@@ -186,7 +197,7 @@ class Projects extends Component {
                 <Card className={classes.site} key={i}>
                     <CardHeader title={projectList[i].title} />
                     <CardContent className={classes.breit}>
-                        <span className={classes.text}>{projectList[i].text}</span>
+                        <span className={classes.text} dangerouslySetInnerHTML={{__html: sanitizedText}}></span>
                     </CardContent>
                     {videoHtml}
                     <Divider className={classes.breit}></Divider>

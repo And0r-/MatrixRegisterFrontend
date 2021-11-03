@@ -15,6 +15,8 @@ import Button from '@mui/material/Button';
 
 import ProjectForm from './ProjectForm';
 
+import Divider from '@mui/material/Divider';
+
 
 const useStyles = {
     site: {
@@ -98,6 +100,37 @@ class Projects extends Component {
             projectList: [{}],
             isLoaded: true,
         };
+
+        this.deleteProject = this.deleteProject.bind(this);
+    }
+
+    deleteProject(id) {
+        const { projectList } = this.state;
+       
+        axiosInstance.delete(stage_config.apiGateway.URL + '/project/'+projectList[id].id)
+        .then(res => res.data)
+        .then(
+            (result) => {
+                if ("error" in result) {
+                    this.setState({
+                        error: { message: result.error },
+                    });
+                } else {
+                    projectList.splice(id, 1);
+                    this.setState({
+                        projectList: projectList,
+                    });
+                }
+            },
+            // Note: it's important to handle errors here
+            // instead of a catch() block so that we don't swallow
+            // exceptions from actual bugs in components.
+            (error) => {
+                this.setState({
+                    error
+                });
+            }
+        )        
     }
 
     componentDidMount() {
@@ -152,17 +185,18 @@ class Projects extends Component {
                 // <li key={i}>
                 <Card className={classes.site} key={i}>
                     <CardHeader title={projectList[i].title} />
-                    <CardContent>
+                    <CardContent className={classes.breit}>
                         <span className={classes.text}>{projectList[i].text}</span>
                     </CardContent>
                     {videoHtml}
+                    <Divider className={classes.breit}></Divider>
                     <CardContent className={classes.breit}>
                         <span>Website: <a href={projectList[i].url}>{projectList[i].url}</a></span><br />
                         <span>Contact: {projectList[i].contact.join(', ')}</span>
                     </CardContent>
                     <CardActions className={classes.breit +' '+ classes.parentFlexRight} >
-                        <Button size="small" variant="contained" color="primary" startIcon={<EditIcon />}>Edit</Button>
-                        <Button size="small" variant="contained" color="secondary" startIcon={<DeleteIcon />}>Delete</Button>
+                        <Button size="small" variant="contained" color="primary"  startIcon={<EditIcon />}>Edit</Button>
+                        <Button size="small" variant="contained" color="secondary" onClick={this.deleteProject.bind(this, i)} startIcon={<DeleteIcon />}>Delete</Button>
                     </CardActions>
                 </Card>
                 // </li>

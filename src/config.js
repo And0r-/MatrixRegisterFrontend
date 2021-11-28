@@ -1,13 +1,13 @@
 const config = {
     dev: {
         apiGateway: {
-            URL: "https://join.iot-schweiz.ch/api"
+            URL: "https://tools.iot-schweiz.ch/api"
         }
     },
 
     prod: {
         apiGateway: {
-            URL: "https://join.iot-schweiz.ch/api"
+            URL: "https://tools.iot-schweiz.ch/api"
         }
     },
 

@@ -9,9 +9,8 @@ steps:
     playbook: .ansible/playbook.yml
     inventory: .ansible/inventory.yml
     private_key:
-      from_secret: ansible_private_key
-    extra_vars:
-      from_secret: ANSIBLE_EXTRA_VARS
+      from_secret: default_ansible_ssh_key
+
   when:
     event:
     - push

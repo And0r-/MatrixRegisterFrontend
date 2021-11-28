@@ -5,7 +5,7 @@
   tasks:
   - name: checkout frontend code on host
     git:
-      repo: git@github.com:And0r-/MatrixRegisterFrontend.git
+      repo: https://github.com/And0r-/MatrixRegisterFrontend.git
       dest: ~/projects/MatrixRegisterFrontend
 
   - name: build docker image
@@ -13,7 +13,7 @@
     docker_image:
       name: matrix_register_frontend
       build:
-        path: /home/andreas/projects/MatrixRegisterFrontend
+        path: /home/drone/projects/MatrixRegisterFrontend
       source: build
       state: present
       force_source: yes
@@ -26,6 +26,6 @@
       image: matrix_register_frontend
       recreate: yes
       ports:
-        - "49172:3000"
+        - "3000:3000"
       restart: yes
       restart_policy: always

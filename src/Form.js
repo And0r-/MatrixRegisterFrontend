@@ -145,13 +145,13 @@ class Form extends React.Component {
                 <Card className={classes.site}>Error: {error.message}</Card>
             </div>;
 
-        } if (formState == 0) {
+        } if (formState === 0) {
             return <div className={classes.container} >
                 <Card className={classes.site}>Loading...</Card>
             </div>;
 
-        } if (formState == 1) {
-            const { name, email, phone } = this.state;
+        } if (formState === 1) {
+            const { name, email } = this.state;
             return (
                 <div className={classes.container} >
                     <Card className={classes.site}>{config.registrationText}<br />
@@ -172,15 +172,6 @@ class Form extends React.Component {
                             value={email}
                             onChange={e => this.setState({ email: e.target.value })}
                         />
-                        {/* <MuiPhoneNumber
-                            name="tel"
-                            label={config.telLabel}
-                            variant="filled"
-                            data-cy="user-phone"
-                            defaultCountry={config.country}
-                            value={phone}
-                            onChange={e => this.setState({ phone: e })}
-                        /> */}
 
                         <br />&nbsp;<br />
 
@@ -209,12 +200,12 @@ class Form extends React.Component {
                 </div>
             );
 
-        } if (formState == 2) {
+        } if (formState === 2) {
             return <div className={classes.container} >
                 <Card className={classes.site}>Sendig Data...</Card>
             </div>;
 
-        } if (formState == 3) {
+        } if (formState === 3) {
             return <div className={classes.container} >
                 <Card className={classes.site} dangerouslySetInnerHTML={{ __html: config.doneText }} />
             </div>;

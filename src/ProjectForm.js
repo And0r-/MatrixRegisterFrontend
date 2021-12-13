@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, Card, TextField, Button, FormControlLabel, FormControl, FormLabel, RadioGroup, Radio, getRadioUtilityClass } from '@mui/material';
+import { Box, Card, TextField, Button } from '@mui/material';
 import { withStyles } from '@mui/styles';
-import { createTheme, ThemeProvider } from '@mui/material/styles'
+// import { createTheme, ThemeProvider } from '@mui/material/styles'
 import stage_config from './config';
 
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -155,7 +155,6 @@ class ProjectForm extends React.Component {
                     this.setState({
                         formState: 1,
                         register: result,
-
                         title: "",
                         text: "",
                         url: "",
@@ -187,13 +186,13 @@ class ProjectForm extends React.Component {
                 <Card className={classes.site}>Error: {error.message}</Card>
             </div>;
 
-        } if (formState == 0) {
+        } if (formState === 0) {
             return <div className={classes.container} >
                 <Card className={classes.site}>Loading...</Card>
             </div>;
 
-        } if (formState == 1 ) {
-            const { title, text, url, video, contact, notification } = this.state;
+        } if (formState === 1 ) {
+            const { title, text, url, video, notification } = this.state;
             let notificationHtml = "";
 
             if (notification) {
@@ -222,37 +221,6 @@ class ProjectForm extends React.Component {
                                 onChange={e => this.setState({ title: e.target.value })}
                                 style={{ width: 568 }}
                             />
-                            {/* <TextField
-                            label="Text"
-                            variant="filled"
-                            name="text"
-                            required
-                            multiline
-                            minRows="9"
-                            value={text}
-                            onChange={e => this.setState({ text: e.target.value })}
-                            style={{ width: 568}}
-                        /> */}
-                            {/* <div>
-                            <ThemeProvider theme={defaultTheme}>
-                                <MUIRichTextEditor
-                                    label="Text"
-                                    defaultValue={text} 
-                                    inlineToolbar={false}
-                                    variant="filled"
-                                    // onChange={e => this.setState({ text: e.target.value })}
-                                    // controls={["my-block"]}
-                                    // customControls={[
-                                    //     {
-                                    //         name: "my-block",
-                                    //         icon: <TableChartIcon />,
-                                    //         type: "block",
-                                    //         blockWrapper: <MyBlock />
-                                    //     }
-                                    // ]}
-                                />
-                            </ThemeProvider>
-                            </div> */}
                             <ReactQuill
                                 theme="bubble"
                                 value={text}
@@ -286,12 +254,6 @@ class ProjectForm extends React.Component {
                             
                             <UploadFiles />
 
-
-                            {/* <div>
-                            <Button type="submit" variant="contained" color="primary">
-                                Erstellen
-                            </Button>
-                        </div> */}
                             <CardActions className={classes.breit + ' ' + classes.parentFlexRight} >
 
                                 <Button type="submit" size="small" variant="contained" color="primary" startIcon={<DeleteIcon />}>Erstellen</Button>
@@ -303,12 +265,12 @@ class ProjectForm extends React.Component {
                 </div>
             );
 
-        } if (formState == 2) {
+        } if (formState === 2) {
             return <div className={classes.container} >
                 <Card className={classes.site}>Sendig Data...</Card>
             </div>;
 
-        } if (formState == 3) {
+        } if (formState === 3) {
             // this.props.projectsPage.getProjectList();
             return <div className={classes.container} >
                 <Card className={classes.site} >Project added :D</Card>

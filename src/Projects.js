@@ -69,7 +69,7 @@ const useStyles = {
     button: {
         backgroundColor: 'gray',
     },
-    
+
     card: {
         backgroundColor: "secondary"
     },
@@ -103,6 +103,7 @@ class Projects extends Component {
             error: null,
             projectList: [{}],
             isLoaded: true,
+            isEdit: [],
         };
 
         this.deleteProject = this.deleteProject.bind(this);
@@ -112,31 +113,51 @@ class Projects extends Component {
         const { projectList } = this.state;
 
         this.props.keycloak.updateToken(30);
-       
-        axiosInstance.delete(stage_config.apiGateway.URL + '/project/'+projectList[id].id)
-        .then(res => res.data)
-        .then(
-            (result) => {
-                if ("error" in result) {
+
+        axiosInstance.delete(stage_config.apiGateway.URL + '/project/' + projectList[id].id)
+            .then(res => res.data)
+            .then(
+                (result) => {
+                    if ("error" in result) {
+                        this.setState({
+                            error: { message: result.error },
+                        });
+                    } else {
+                        projectList.splice(id, 1);
+                        this.setState({
+                            projectList: projectList,
+                        });
+                    }
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+                (error) => {
                     this.setState({
-                        error: { message: result.error },
-                    });
-                } else {
-                    projectList.splice(id, 1);
-                    this.setState({
-                        projectList: projectList,
+                        error
                     });
                 }
-            },
-            // Note: it's important to handle errors here
-            // instead of a catch() block so that we don't swallow
-            // exceptions from actual bugs in components.
-            (error) => {
-                this.setState({
-                    error
-                });
-            }
-        )        
+            )
+    }
+
+    editProject(id) {
+        const { isEdit } = this.state;
+
+        isEdit[id] = true;
+
+        this.setState({
+            isEdit: isEdit,
+        });
+    }
+
+    removeEditMode(id) {
+        const { isEdit } = this.state;
+
+        isEdit[id] = false;
+
+        this.setState({
+            isEdit: isEdit,
+        }); 
     }
 
     componentDidMount() {
@@ -146,45 +167,45 @@ class Projects extends Component {
     getProjectList() {
         this.props.keycloak.updateToken(30);
         axiosInstance.get(stage_config.apiGateway.URL + '/test2')
-        .then(res => res.data)
-        .then(
-            (result) => {
-                if ("error" in result) {
+            .then(res => res.data)
+            .then(
+                (result) => {
+                    if ("error" in result) {
+                        this.setState({
+                            error: { message: result.error },
+                        });
+                    } else {
+                        console.log(result);
+                        this.setState({
+                            projectList: result,
+                            isLoaded: false
+                        });
+                    }
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+                (error) => {
                     this.setState({
-                        error: { message: result.error },
-                    });
-                } else {
-                    console.log(result);
-                    this.setState({
-                        projectList: result,
-                        isLoaded: false
+                        error
                     });
                 }
-            },
-            // Note: it's important to handle errors here
-            // instead of a catch() block so that we don't swallow
-            // exceptions from actual bugs in components.
-            (error) => {
-                this.setState({
-                    error
-                });
-            }
-        )
+            )
     }
 
     createList() {
         const { classes } = this.props;
-        const { projectList } = this.state;
+        const { projectList, isEdit } = this.state;
         let projectListHtml = [];
 
-        
+
 
         // alert(JSON.stringify(projectList, null, "  "));
 
         for (let i = 0; i < projectList.length; i++) {
             console.log(projectList[i].title);
 
-            const sanitizedText=DOMPurify.sanitize(projectList[i].text, {ALLOWED_TAGS: ['b', 'code', 'strong', 'em', 'span', 'p', 'br', 'a'], ALLOWED_ATTR: ['style', 'href']})
+            const sanitizedText = DOMPurify.sanitize(projectList[i].text, { ALLOWED_TAGS: ['b', 'code', 'strong', 'em', 'span', 'p', 'br', 'a'], ALLOWED_ATTR: ['style', 'href'] })
 
             var videoHtml = ""
             if (projectList[i].video) {
@@ -192,26 +213,32 @@ class Projects extends Component {
                     <br /></CardContent>;
             }
 
-            projectListHtml.push(
-                // <li key={i}>
-                <Card className={classes.site} key={i}>
-                    <CardHeader title={projectList[i].title} />
-                    <CardContent className={classes.breit}>
-                        <span className={classes.text} dangerouslySetInnerHTML={{__html: sanitizedText}}></span>
-                    </CardContent>
-                    {videoHtml}
-                    <Divider className={classes.breit}></Divider>
-                    <CardContent className={classes.breit}>
-                        <span>Website: <a href={projectList[i].url}>{projectList[i].url}</a></span><br />
-                        <span>Contact: {projectList[i].contact.join(', ')}</span>
-                    </CardContent>
-                    <CardActions className={classes.breit +' '+ classes.parentFlexRight} >
-                        <Button size="small" variant="contained" color="primary"  startIcon={<EditIcon />}>Edit</Button>
-                        <Button size="small" variant="contained" color="secondary" onClick={this.deleteProject.bind(this, i)} startIcon={<DeleteIcon />}>Delete</Button>
-                    </CardActions>
-                </Card>
-                // </li>
-            );
+            if (isEdit[projectList[i].id] === true) {
+                projectListHtml.push(
+                    <ProjectForm keycloak={this.props.keycloak} axiosInstance={axiosInstance} projectsPage={this} editId={projectList[i].id} />
+                );
+            } else {
+                projectListHtml.push(
+                    // <li key={i}>
+                    <Card className={classes.site} key={i}>
+                        <CardHeader title={projectList[i].title} />
+                        <CardContent className={classes.breit}>
+                            <span className={classes.text} dangerouslySetInnerHTML={{ __html: sanitizedText }}></span>
+                        </CardContent>
+                        {videoHtml}
+                        <Divider className={classes.breit}></Divider>
+                        <CardContent className={classes.breit}>
+                            <span>Website: <a href={projectList[i].url}>{projectList[i].url}</a></span><br />
+                            <span>Contact: {projectList[i].contact.join(', ')}</span>
+                        </CardContent>
+                        <CardActions className={classes.breit + ' ' + classes.parentFlexRight} >
+                            <Button size="small" variant="contained" color="primary" onClick={this.editProject.bind(this, projectList[i].id)} startIcon={<EditIcon />}>Edit</Button>
+                            <Button size="small" variant="contained" color="secondary" onClick={this.deleteProject.bind(this, i)} startIcon={<DeleteIcon />}>Delete</Button>
+                        </CardActions>
+                    </Card>
+                    // </li>
+                );
+            }
         }
         return projectListHtml;
     }
@@ -236,7 +263,7 @@ class Projects extends Component {
             console.log("project, userdata: ", this.props.keycloak);
             return (
 
-                <div className={classes.container +' '+ classes.background}>
+                <div className={classes.container + ' ' + classes.background}>
                     <Card className={classes.site}>
                         <CardHeader title="IOT Project Overview" />
                         <CardContent>

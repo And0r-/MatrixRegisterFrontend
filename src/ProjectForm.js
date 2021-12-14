@@ -109,8 +109,48 @@ class ProjectForm extends React.Component {
             contact: []
         };
 
+
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+    }
+
+    componentDidMount() {
+        if (this.props.editId !== undefined) {
+            this.getProjectList();
+        }
+    }
+
+    getProjectList() {
+        this.props.keycloak.updateToken(30);
+        this.props.axiosInstance.get(stage_config.apiGateway.URL + '/project/' + this.props.editId)
+            .then(res => res.data)
+            .then(
+                (result) => {
+                    if ("error" in result) {
+                        this.setState({
+                            error: { message: result.error },
+                        });
+                    } else {
+                        console.log("edit mode loaded for ", this.props.editId, " found title: ", result.title);
+                        this.setState({
+                            title: result.title,
+                            text: result.text,
+                            url: result.url,
+                            video: result.video,
+                            creator: result.creator,
+                            isLoaded: false
+                        });
+                    }
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+                (error) => {
+                    this.setState({
+                        error
+                    });
+                }
+            )
     }
 
     handleChange(value) {
@@ -125,10 +165,55 @@ class ProjectForm extends React.Component {
             formState: 2
         });
 
-        this.sendForm();
+        if (this.props.editId === undefined) {
+            this.sendCreateForm();
+        } else {
+            this.sendUpdateForm();
+        }
     }
 
-    sendForm() {
+    sendUpdateForm() {
+        let formData = {
+            title: this.state.title,
+            text: this.state.text,
+            url: this.state.url,
+            video: this.state.video,
+            creator: this.state.creator
+        };
+
+        if (this.state.contact && this.state.contact.length > 0) {
+            formData.contact = this.state.contact
+        }
+
+        this.props.keycloak.updateToken(30);
+
+        this.props.axiosInstance.put(stage_config.apiGateway.URL + '/project/'+this.props.editId, JSON.stringify(formData), {
+            headers: {
+                // Overwrite Axios's automatically set Content-Type
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => res.data)
+            .then(
+                (result) => {
+                    this.props.projectsPage.removeEditMode(this.props.editId);
+                    this.props.projectsPage.getProjectList();
+
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+                (error) => {
+                    this.setState({
+                        formState: 3,
+                        error
+                    });
+                }
+            )
+    }
+
+
+    sendCreateForm() {
         let formData = {
             title: this.state.title,
             text: this.state.text,
@@ -191,18 +276,20 @@ class ProjectForm extends React.Component {
                 <Card className={classes.site}>Loading...</Card>
             </div>;
 
-        } if (formState === 1 ) {
+        } if (formState === 1) {
             const { title, text, url, video, notification } = this.state;
             let notificationHtml = "";
 
             if (notification) {
-                notificationHtml = <Expire delay="5000"> 
-                <Card className={classes.site} style={{ width: 600 }}>Test Message</Card>  
+                notificationHtml = <Expire delay="5000">
+                    <Card className={classes.site} style={{ width: 600 }}>Test Message</Card>
                 </Expire>
 
             }
+
+
             return (
-                <div className={classes.container} >
+                <div className={classes.container} key={"form_" + this.props.editId} >
 
                     <Box
                         component="form"
@@ -211,7 +298,7 @@ class ProjectForm extends React.Component {
                     >
                         <Card className={classes.site} style={{ width: 600 }}>
 
-                            <CardHeader title="Add a Project" />
+                            <CardHeader title={(this.props.editId === undefined) ? 'Add a Project' : 'Edit Project'} />
                             <TextField
                                 label="Title"
                                 variant="filled"
@@ -226,10 +313,10 @@ class ProjectForm extends React.Component {
                                 value={text}
                                 placeholder="Text"
                                 onChange={this.handleChange}
-                                style={{ width: 568}}
+                                style={{ width: 568 }}
                                 format={toolbarOptions}
                                 modules={{
-                                    toolbar:toolbarOptions
+                                    toolbar: toolbarOptions
                                 }}
 
                             />
@@ -251,8 +338,8 @@ class ProjectForm extends React.Component {
                                     style={{ width: 276 }}
                                 />
                             </div>
-                            
-                            <UploadFiles />
+
+                            {/* <UploadFiles /> */}
 
                             <CardActions className={classes.breit + ' ' + classes.parentFlexRight} >
 
@@ -260,8 +347,8 @@ class ProjectForm extends React.Component {
                             </CardActions>
                         </Card>
                     </Box>
-                       {notificationHtml}
-                    
+                    {notificationHtml}
+
                 </div>
             );
 

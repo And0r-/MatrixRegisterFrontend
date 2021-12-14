@@ -21,6 +21,10 @@ import Divider from '@mui/material/Divider';
 
 import DOMPurify from 'dompurify';
 
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.bubble.css';
+
+
 
 const useStyles = {
     site: {
@@ -72,6 +76,12 @@ const useStyles = {
 
     card: {
         backgroundColor: "secondary"
+    },
+
+    quilltext: {
+        '& .ql-editor': {
+            backgroundColor: 'white',
+        },
     },
 };
 
@@ -157,7 +167,7 @@ class Projects extends Component {
 
         this.setState({
             isEdit: isEdit,
-        }); 
+        });
     }
 
     componentDidMount() {
@@ -205,7 +215,7 @@ class Projects extends Component {
         for (let i = 0; i < projectList.length; i++) {
             console.log(projectList[i].title);
 
-            const sanitizedText = DOMPurify.sanitize(projectList[i].text, { ALLOWED_TAGS: ['b', 'code', 'strong', 'em', 'span', 'p', 'br', 'a'], ALLOWED_ATTR: ['style', 'href'] })
+            const sanitizedText = DOMPurify.sanitize(projectList[i].text, { ALLOWED_TAGS: ['b', 'code', 'strong', 'em', 'span', 'p', 'br', 'a', 'ul', 'li'], ALLOWED_ATTR: ['style', 'href'] })
 
             var videoHtml = ""
             if (projectList[i].video) {
@@ -223,7 +233,13 @@ class Projects extends Component {
                     <Card className={classes.site} key={i}>
                         <CardHeader title={projectList[i].title} />
                         <CardContent className={classes.breit}>
-                            <span className={classes.text} dangerouslySetInnerHTML={{ __html: sanitizedText }}></span>
+                            <ReactQuill
+                                value={sanitizedText}
+                                readOnly={true}
+                                theme={"bubble"}
+                                className={classes.quilltext}
+                            />
+                            {/* <span className={classes.text} dangerouslySetInnerHTML={{ __html: sanitizedText }}></span> */}
                         </CardContent>
                         {videoHtml}
                         <Divider className={classes.breit}></Divider>

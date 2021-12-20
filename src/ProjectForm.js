@@ -38,7 +38,10 @@ const useStyles = {
         },
         '& .switch': {
             width: '600px',
-        }
+        },
+        '& .ql-container': {
+            fontSize: 18
+        },
     },
 
     container: {

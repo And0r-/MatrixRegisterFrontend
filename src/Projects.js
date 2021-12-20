@@ -36,6 +36,9 @@ const useStyles = {
         margin: '16px',
         width: '600px',
         backgroundColor: 'lightgray',
+        '& .ql-container': {
+            fontSize: 18
+        },
     },
 
     container: {

@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, TextField, Button, FormControlLabel, FormControl, FormLabel, RadioGroup, Radio } from '@mui/material';
 import { withStyles } from '@mui/styles';
 import stage_config from './config';
+import CardHeader from '@mui/material/CardHeader';
 
 const useStyles = {
     site: {
@@ -154,7 +155,8 @@ class Form extends React.Component {
             const { name, email } = this.state;
             return (
                 <div className={classes.container} >
-                    <Card className={classes.site}>{config.registrationText}<br />
+                    <Card className={classes.site}>
+                    <CardHeader title={config.registrationText} />
                     <form className={classes.site} onSubmit={this.handleSubmit}>
                         <TextField
                             label={config.nameLabel}
@@ -179,12 +181,12 @@ class Form extends React.Component {
                             <FormLabel component="legend">Two Factor Auth</FormLabel>
                             <RadioGroup
                                 aria-label="gender"
-                                defaultValue="email"
+                                defaultValue="authenticator"
                                 name="radio-buttons-group"
                                 onChange={e => this.setState({ twofa: e.target.value })}
                             >
-                                <FormControlLabel value="email" control={<Radio />} label="Email" />
                                 <FormControlLabel value="authenticator" control={<Radio />} label="Authenticator" />
+                                <FormControlLabel value="email" control={<Radio />} label="Email" />
                             </RadioGroup>
                         </FormControl>
 

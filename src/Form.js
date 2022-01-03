@@ -52,7 +52,7 @@ class Form extends React.Component {
             phone: "",
             config: {},
             register: {},
-            twofa: "email"
+            twofa: "authenticator"
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);

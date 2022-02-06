@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Card, TextField, Button } from '@mui/material';
+import { Box, Card, TextField, Button, CardContent } from '@mui/material';
 import { withStyles } from '@mui/styles';
 // import { createTheme, ThemeProvider } from '@mui/material/styles'
 import stage_config from './config';
@@ -302,6 +302,12 @@ class ProjectForm extends React.Component {
                         <Card className={classes.site} style={{ width: 600 }}>
 
                             <CardHeader title={(this.props.editId === undefined) ? 'Add a Project' : 'Edit Project'} />
+                            <CardContent>
+                            <span className={classes.text}>
+                                On some Browser there is a bug to add/edit/remove a project. <br />
+                                When it will not work, send the data to Nemolus and it will be added soon.
+                            </span>
+                            </CardContent>
                             <TextField
                                 label="Title"
                                 variant="filled"

@@ -330,21 +330,22 @@ class ProjectForm extends React.Component {
 
                             />
                             <div>
-                                <TextField
+                                {/* <TextField
                                     label="Yourube Link"
                                     variant="filled"
                                     name="video"
                                     value={video}
                                     onChange={e => this.setState({ video: e.target.value })}
                                     style={{ width: 276 }}
-                                />
+                                /> */}
                                 <TextField
                                     label="Link"
                                     variant="filled"
                                     name="url"
                                     value={url}
                                     onChange={e => this.setState({ url: e.target.value })}
-                                    style={{ width: 276 }}
+                                    // style={{ width: 276 }}
+                                    style={{ width: 568 }}
                                 />
                             </div>
 
@@ -352,7 +353,7 @@ class ProjectForm extends React.Component {
 
                             <CardActions className={classes.breit + ' ' + classes.parentFlexRight} >
 
-                                <Button type="submit" size="small" variant="contained" color="primary" startIcon={<DeleteIcon />}>Erstellen</Button>
+                                <Button type="submit" size="small" variant="contained" color="primary" startIcon={<DeleteIcon />}>{(this.props.editId === undefined) ? 'create' : 'update'}</Button>
                             </CardActions>
                         </Card>
                     </Box>

@@ -298,10 +298,12 @@ class Projects extends Component {
                     <Card className={classes.site}>
                         <CardHeader title="I'm still looking for a programmer" />
                         <CardContent>
-                            <span className={classes.text}>This tool is project from Nemolus and only the beginning.
-                            When you will help feel free to contact Nemolus
+                            <span className={classes.text}>When you will help, feel free to contact Nemolus
+
                             Or take a look at the code:
+
                             <a href="https://github.com/And0r-/MatrixRegisterFrontend">React Frontend</a>
+
                             <a href="https://github.com/And0r-/MatrixRegisterBackend">Express Backend</a></span>
                         </CardContent>
                     </Card>
@@ -313,3 +315,4 @@ class Projects extends Component {
 }
 
 export default withStyles(useStyles)(Projects);
+

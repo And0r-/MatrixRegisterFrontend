@@ -292,6 +292,15 @@ class Projects extends Component {
                     </Card>
                     {this.createList()}
                     <ProjectForm keycloak={this.props.keycloak} axiosInstance={axiosInstance} projectsPage={this} />
+                    <br />
+                    <br />
+                    <br />
+                    <Card className={classes.site}>
+                        <CardHeader title="Programmer" />
+                        <CardContent>
+                            <span className={classes.text}>This tool a react/express javascript project from Nemolus and only the beginning.<br />When you will help feel free to contact Nemolus<br />https://github.com/And0r-/MatrixRegisterFrontend<br/>https://github.com/And0r-/MatrixRegisterBackend</span>
+                        </CardContent>
+                    </Card>
                 </div>
             );
         }

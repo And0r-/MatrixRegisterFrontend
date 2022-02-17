@@ -296,9 +296,13 @@ class Projects extends Component {
                     <br />
                     <br />
                     <Card className={classes.site}>
-                        <CardHeader title="Programmer" />
+                        <CardHeader title="I'm still looking for a programmer" />
                         <CardContent>
-                            <span className={classes.text}>This tool a react/express javascript project from Nemolus and only the beginning.<br />When you will help feel free to contact Nemolus<br />https://github.com/And0r-/MatrixRegisterFrontend<br/>https://github.com/And0r-/MatrixRegisterBackend</span>
+                            <span className={classes.text}>This tool is project from Nemolus and only the beginning.
+                            When you will help feel free to contact Nemolus
+                            Or take a look at the code:
+                            <a href="https://github.com/And0r-/MatrixRegisterFrontend">React Frontend</a>
+                            <a href="https://github.com/And0r-/MatrixRegisterBackend">Express Backend</a></span>
                         </CardContent>
                     </Card>
                 </div>

@@ -295,9 +295,9 @@ class Projects extends Component {
                     <Card className={classes.site}>
                         <CardHeader title="I'm still looking for a programmer" />
                         <CardContent>
-                            <span className={classes.text}>When you will help, feel free to contact Nemolus<br /><br />
-                            Or take a look at the code:<br /><br />
-                            <a href="https://github.com/And0r-/MatrixRegisterFrontend">React Frontend</a><br /><br />
+                            <span className={classes.text}>When you will help, feel free to contact Nemolus<br />
+                            Or take a look at the code:<br />
+                            <a href="https://github.com/And0r-/MatrixRegisterFrontend">React Frontend</a><br />
                             <a href="https://github.com/And0r-/MatrixRegisterBackend">Express Backend</a></span>
                         </CardContent>
                     </Card>

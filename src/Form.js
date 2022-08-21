@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, TextField, Button, FormControlLabel, FormControl, FormLabel, RadioGroup, Radio } from '@mui/material';
+import { Card, TextField, Button, InputLabel, NativeSelect, FormControlLabel, FormControl, FormLabel, RadioGroup, Radio } from '@mui/material';
 import { withStyles } from '@mui/styles';
 import stage_config from './config';
 import CardHeader from '@mui/material/CardHeader';
@@ -74,6 +74,9 @@ class Form extends React.Component {
                             formState: 1,
                             config: result
                         });
+                        if (result.emailAllowedDomain) {
+                            this.setState({ email: result.emailAllowedDomain })
+                        }
                     }
                 },
                 // Note: it's important to handle errors here
@@ -165,6 +168,7 @@ class Form extends React.Component {
                             value={name}
                             onChange={e => this.setState({ name: e.target.value })}
                         />
+                        { config.emailAllowedDomain &&
                         <TextField
                             label={config.emailLabel}
                             variant="filled"
@@ -173,7 +177,23 @@ class Form extends React.Component {
                             required
                             value={email}
                             onChange={e => this.setState({ email: e.target.value })}
+                            error={!email.endsWith(config.emailAllowedDomain)}
+                            helperText={!email.endsWith(config.emailAllowedDomain) ? "only " + config.emailAllowedDomain + " adresses allowed " : " "}
                         />
+                        }
+
+                        { config.emailAllowedDomain === undefined &&
+                        <TextField
+                            label={config.emailLabel}
+                            variant="filled"
+                            type="email"
+                            name="email"
+                            required
+                            value={email}
+                            onChange={e => this.setState({ email: e.target.value })}                            
+                        />
+                        }
+
 
                         <br />&nbsp;<br />
 

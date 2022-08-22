@@ -9,7 +9,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 # install app dependencies
 COPY package.json ./
 COPY package-lock.json ./
-RUN npm ci --silent
+RUN npm ci --legacy-peer-deps --silent
 RUN npm install -g npm@8.18.0 --silent
 RUN npm install react-scripts -g --silent
 

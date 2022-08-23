@@ -178,7 +178,7 @@ class Form extends React.Component {
                             value={email}
                             onChange={e => this.setState({ email: e.target.value })}
                             error={!email.endsWith(config.emailAllowedDomain)}
-                            helperText={!email.endsWith(config.emailAllowedDomain) ? "only " + config.emailAllowedDomain + " adresses allowed " : " "}
+                            helperText={!email.endsWith(config.emailAllowedDomain) ? "only " + config.emailAllowedDomain + " addresses allowed " : " "}
                         />
                         }
 
@@ -224,7 +224,7 @@ class Form extends React.Component {
 
         } if (formState === 2) {
             return <div className={classes.container} >
-                <Card className={classes.site}>Sendig Data...</Card>
+                <Card className={classes.site}>Sending Data...</Card>
             </div>;
 
         } if (formState === 3) {

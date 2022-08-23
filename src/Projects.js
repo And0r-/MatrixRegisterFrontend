@@ -286,16 +286,16 @@ class Projects extends Component {
                     <Card className={classes.site}>
                         <CardHeader title="IOT Project Overview" />
                         <CardContent>
-                            <span className={classes.text}>Hey {this.props.keycloak.idTokenParsed.given_name} welcome on the Project overview page.<br></br>
-                                Here you can find some IOT projects, or add a own one.</span>
+                            <span className={classes.text}>Hey {this.props.keycloak.idTokenParsed.given_name}, welcome to the project overview page.<br></br>
+                                Here you can find some IOT projects, or add you own.</span>
                         </CardContent>
                     </Card>
                     {this.createList()}
                     <ProjectForm keycloak={this.props.keycloak} axiosInstance={axiosInstance} projectsPage={this} />
                     <Card className={classes.site}>
-                        <CardHeader title="I'm still looking for a programmer" />
+                        <CardHeader title="I'm still looking programmers" />
                         <CardContent>
-                            <span className={classes.text}>When you will help, feel free to contact Nemolus<br />
+                            <span className={classes.text}>If you feel like helping, contact Nemolus<br />
                             Or take a look at the code:<br />
                             <a href="https://github.com/And0r-/MatrixRegisterFrontend">React Frontend</a><br />
                             <a href="https://github.com/And0r-/MatrixRegisterBackend">Express Backend</a></span>

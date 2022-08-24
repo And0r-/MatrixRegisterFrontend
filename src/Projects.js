@@ -287,7 +287,7 @@ class Projects extends Component {
                         <CardHeader title="IOT Project Overview" />
                         <CardContent>
                             <span className={classes.text}>Hey {this.props.keycloak.idTokenParsed.given_name}, welcome to the project overview page.<br></br>
-                                Here you can find some IOT projects, or add you own.</span>
+                                Here you can find some IOT projects, or add your own.</span>
                         </CardContent>
                     </Card>
                     {this.createList()}

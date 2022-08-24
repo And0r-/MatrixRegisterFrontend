@@ -304,8 +304,8 @@ class ProjectForm extends React.Component {
                             <CardHeader title={(this.props.editId === undefined) ? 'Add a Project' : 'Edit Project'} />
                             <CardContent>
                             <span className={classes.text}>
-                                On some Browser there is a bug to add/edit/remove a project. <br />
-                                When it will not work, send the data to Nemolus and it will be added soon.
+                                Some browsers still have bugs with adding, editing, or removing projects.<br />
+                                If it doesn't work, send the relevant data to Nemolus and it will be added soon.
                             </span>
                             </CardContent>
                             <TextField
@@ -364,7 +364,7 @@ class ProjectForm extends React.Component {
 
         } if (formState === 2) {
             return <div className={classes.container} >
-                <Card className={classes.site}>Sendig Data...</Card>
+                <Card className={classes.site}>Sending Data...</Card>
             </div>;
 
         } if (formState === 3) {

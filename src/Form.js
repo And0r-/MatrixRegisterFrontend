@@ -206,7 +206,7 @@ class Form extends React.Component {
                                 onChange={e => this.setState({ twofa: e.target.value })}
                             >
                                 <FormControlLabel value="authenticator" control={<Radio />} label="Authenticator" />
-                                <FormControlLabel value="email" control={<Radio />} label="Email" />
+                                <FormControlLabel value="email" control={<Radio />} label="None" />
                             </RadioGroup>
                         </FormControl>
 

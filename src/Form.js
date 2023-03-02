@@ -52,7 +52,7 @@ class Form extends React.Component {
             phone: "",
             config: {},
             register: {},
-            twofa: "authenticator"
+            twofa: "email"
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -201,12 +201,12 @@ class Form extends React.Component {
                             <FormLabel component="legend">Two Factor Auth</FormLabel>
                             <RadioGroup
                                 aria-label="gender"
-                                defaultValue="authenticator"
+                                defaultValue="email"
                                 name="radio-buttons-group"
                                 onChange={e => this.setState({ twofa: e.target.value })}
                             >
-                                <FormControlLabel value="authenticator" control={<Radio />} label="Authenticator" />
                                 <FormControlLabel value="email" control={<Radio />} label="None" />
+                                <FormControlLabel value="authenticator" control={<Radio />} label="Authenticator" />
                             </RadioGroup>
                         </FormControl>
 

@@ -11,7 +11,7 @@ class Secured extends Component {
     }
 
     componentDidMount() {
-        const keycloak = Keycloak('/keycloak.json');
+        const keycloak = new Keycloak('/keycloak.json');
         keycloak.init({ onLoad: 'login-required' }).then(authenticated => {
 
             if (authenticated) {
@@ -21,7 +21,7 @@ class Secured extends Component {
 
                 //         // alert(profile.firstName);
                 //         // alert(profile.id);
-                        // alert(JSON.stringify(keycloak, null, "  "));
+                // alert(JSON.stringify(keycloak, null, "  "));
                 //         return profile.firstName;
 
                 //     }).catch(function () {

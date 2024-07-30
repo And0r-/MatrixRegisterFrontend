@@ -4,7 +4,7 @@ import Keycloak from 'keycloak-js';
 
 import {
     Route,
-  } from "react-router-dom";
+} from "react-router-dom";
 
 class Secured2 extends Component {
 
@@ -14,7 +14,7 @@ class Secured2 extends Component {
     }
 
     componentDidMount() {
-        const keycloak = Keycloak('/keycloak.json');
+        const keycloak = new Keycloak('/keycloak.json');
         keycloak.init({ onLoad: 'login-required' }).then(authenticated => {
 
             if (authenticated) {
@@ -23,8 +23,8 @@ class Secured2 extends Component {
                 //     .then(function (profile) {
 
                 //         // alert(profile.firstName);
-                        // alert(keycloak.token);
-                        // alert(JSON.stringify(keycloak, null, "  "));
+                // alert(keycloak.token);
+                // alert(JSON.stringify(keycloak, null, "  "));
                 //         return profile.firstName;
 
                 //     }).catch(function () {
@@ -38,15 +38,15 @@ class Secured2 extends Component {
     }
 
     render() {
-        const {component: Component, ...rest} = this.props;
+        const { component: Component, ...rest } = this.props;
         if (this.state.keycloak) {
             if (this.state.authenticated) return (
                 <div>
-                <Route {...rest} render={props => (
-                    <Component {...props} keycloak={this.state.keycloak} />
-                )} />
+                    <Route {...rest} render={props => (
+                        <Component {...props} keycloak={this.state.keycloak} />
+                    )} />
                 </div>
-                    
+
             ); else return (<div>Unable to authenticate!</div>)
         }
         return (

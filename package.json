@@ -11,7 +11,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^14.4.3",
-    "axios": "^0.27.2",
+    "axios": "^1.6.3",
     "dompurify": "^2.3.10",
     "generate-password": "^1.7.0",
     "keycloak-js": "^25.0.1",
